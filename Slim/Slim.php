@@ -952,7 +952,7 @@ class Slim
         $this->cleanBuffer();
         $this->response->status($status);
         $this->response->body($message);
-        if(this->mockHalts) return;
+        if($this->mockHalts) return;
         $this->stop();
     }
 
