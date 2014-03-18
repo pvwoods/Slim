@@ -110,6 +110,8 @@ class Slim
      * @var mixed Callable to be invoked if no matching routes are found
      */
     protected $notFound;
+    
+    protected $mockHalts = false;
 
     /**
      * @var array
@@ -405,6 +407,9 @@ class Slim
 	if(isset($this->settings['prependToRoutes'])) {
 		$pattern = $this->settings['prependToRoutes'] . $pattern;
 	}
+	
+	$this->mockHalts = isset($this->settings['mockHalts']);
+	
         $route = $this->router->map($pattern, $callable);
         if (count($args) > 0) {
             $route->setMiddleware($args);
@@ -947,6 +952,7 @@ class Slim
         $this->cleanBuffer();
         $this->response->status($status);
         $this->response->body($message);
+        if(this->mockHalts) return;
         $this->stop();
     }
 
