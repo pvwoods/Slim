@@ -180,7 +180,7 @@ class Slim
         // Setup Slim application
         $this->settings = array_merge(static::getDefaultSettings(), $userSettings);
 
-        if(isset($_SERVER['UNIT_TESTING']) && $_SERVER['UNIT_TESTING'] == 'true') {
+        if(isset($this->settings['mockHalts'])) {
             $this->environment = \Slim\Environment::mock();
         } else {
             $this->environment = \Slim\Environment::getInstance();
