@@ -179,7 +179,13 @@ class Slim
     {
         // Setup Slim application
         $this->settings = array_merge(static::getDefaultSettings(), $userSettings);
-        $this->environment = \Slim\Environment::getInstance();
+
+        if(isset($this->settings['mockHalts'])) {
+            $this->environment = \Slim\Environment::mock();
+        } else {
+            $this->environment = \Slim\Environment::getInstance();
+        }
+        
         $this->request = new \Slim\Http\Request($this->environment);
         $this->response = new \Slim\Http\Response();
         $this->router = new \Slim\Router();
