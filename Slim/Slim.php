@@ -1210,7 +1210,10 @@ class Slim
         }
 
         //Send body
-        echo $body;
+        $bodyParts = str_split($body, 65536);
+        foreach($bodyParts as $part) {
+            echo $part;
+        }
 
         restore_error_handler();
     }
